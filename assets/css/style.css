@@ -238,3 +238,84 @@ body {
 body.dark .timeframe-selector button, body.dark .type-selector button {
     border-color: #444;
 }
+
+.star-icon {
+    font-size: 1.5rem; /* Ukuran diperbesar */
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    user-select: none;
+    width: fit-content;
+    padding: 5px;
+    z-index: 10;
+}
+
+.star-icon:hover {
+    transform: scale(1.3); /* Efek membesar saat kursor di atasnya */
+    color: #ffca28;
+}
+
+.star-icon.active {
+    color: #ffca28;
+    text-shadow: 0 0 5px rgba(255, 202, 40, 0.5);
+}
+
+/* Tambahan navigasi aktif */
+nav a.active {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+}
+
+/* --- MOBILE RESPONSIVE OPTIMIZATION --- */
+@media (max-width: 768px) {
+    /* Header & Navigasi */
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .logo-nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 5px;
+        justify-content: center;
+    }
+
+    /* Grid Koin */
+    .grid {
+        grid-template-columns: 1fr; /* Satu kolom di HP */
+        padding: 10px 3%;
+    }
+
+    /* Halaman Detail Koin (coin.php) */
+    .coin-detail-layout { /* Pastikan div pembungkus di coin.php pakai class ini */
+        grid-template-columns: 1fr !important; /* Grafik & Stat jadi tumpuk vertikal */
+    }
+
+    #priceChart {
+        height: 250px !important; /* Perkecil chart agar tidak makan tempat */
+    }
+
+    /* Sembunyikan Market Cap/Volume di List View jika layar terlalu sempit */
+    .grid.list-view .card-content div:last-child {
+        display: none;
+    }
+    
+    /* Swap Box */
+    .swap-box {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    /* Bar Trending */
+    .trending-container {
+        padding: 10px 3% 0;
+    }
+}

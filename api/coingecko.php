@@ -1,5 +1,7 @@
 <?php
+// Di dalam file api/coingecko.php
 if (!function_exists('fetchAPI')) {
+    // ... fungsi fetchAPI yang sudah ada ...
     function fetchAPI($url) {
         $cacheDir = __DIR__ . '/cache/';
         if (!is_dir($cacheDir)) mkdir($cacheDir, 0777, true);
@@ -25,6 +27,12 @@ if (!function_exists('fetchAPI')) {
         return file_exists($cacheFile) ? json_decode(file_get_contents($cacheFile), true) : null;
     }
 
+    // Fungsi Baru untuk Trending
+        function getTrendingCoins() {
+        $url = "https://api.coingecko.com/api/v3/search/trending";
+        return fetchAPI($url) ?: [];
+    }
+
     function getMarketCoins($limit = 40) {
         $url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=$limit&page=1&sparkline=false&price_change_percentage=24h";
         return fetchAPI($url) ?: [];
@@ -34,9 +42,18 @@ if (!function_exists('fetchAPI')) {
         return fetchAPI("https://api.coingecko.com/api/v3/coins/" . urlencode($id));
     }
 
-    // Fungsi Baru untuk Candlestick
-    function getCoinOHLC($id, $days = 1) {
-        $url = "https://api.coingecko.com/api/v3/coins/" . urlencode($id) . "/ohlc?vs_currency=usd&days=$days";
+    function getMarketChart($id, $days = 1) {
+        $url = "https://api.coingecko.com/api/v3/coins/" . urlencode($id) . "/market_chart?vs_currency=usd&days=$days";
         return fetchAPI($url) ?: [];
     }
 }
+
+// Handler untuk AJAX tetap di bawah
+if (isset($_GET['action']) && $_GET['action'] == 'get_chart') {
+    header('Content-Type: application/json');
+    $id = $_GET['id'] ?? 'bitcoin';
+    $days = $_GET['days'] ?? 1;
+    echo json_encode(getMarketChart($id, $days));
+    exit;
+}
+?>

@@ -16,7 +16,11 @@
     <div class="header-content">
         <div class="logo-nav">
             <h2>📈 Crypto Market</h2>
-            <nav><a href="index.php">Pasar</a><a href="swap.php">Swap</a></nav>
+            <nav>
+                <a href="index.php">Pasar</a>
+                <a href="trending.php">Trending</a> <a href="watchlist.php">Watchlist</a>
+                <a href="swap.php">Swap</a>
+            </nav>
         </div>
         <button onclick="toggleTheme()" class="theme-btn">🌓</button>
     </div>

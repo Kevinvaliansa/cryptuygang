@@ -22,11 +22,19 @@ function searchCoin() {
 }
 
 function toggleWatchlist(id, event) {
-    event.preventDefault(); event.stopPropagation();
+    event.preventDefault(); 
+    event.stopPropagation();
+    
+    // Mengambil data lama atau buat array kosong jika baru pertama
     let watchlist = JSON.parse(localStorage.getItem('myWatchlist')) || [];
     const index = watchlist.indexOf(id);
-    if (index > -1) watchlist.splice(index, 1);
-    else watchlist.push(id);
+    
+    if (index > -1) {
+        watchlist.splice(index, 1); // Hapus jika diklik lagi
+    } else {
+        watchlist.push(id); // Tambah ke daftar
+    }
+    
     localStorage.setItem('myWatchlist', JSON.stringify(watchlist));
     renderWatchlistIcons();
 }
