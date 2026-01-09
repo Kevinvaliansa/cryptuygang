@@ -1,0 +1,218 @@
+:root {
+    --bg: #f8fafc;
+    --text: #1e293b;
+    --card-bg: #ffffff;
+    --accent: #3b82f6;
+    --up: #10b981;
+    --down: #ef4444;
+}
+
+body.dark {
+    --bg: #0f172a;
+    --text: #f1f5f9;
+    --card-bg: #1e293b;
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Inter', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    transition: 0.3s; 
+}
+
+header { 
+    background: var(--card-bg); 
+    padding: 15px 5%; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky; 
+    top: 0; 
+    z-index: 100;
+}
+
+.header-content { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo-nav { display: flex; align-items: center; gap: 30px; }
+
+nav a { 
+    text-decoration: none; 
+    color: var(--text); 
+    font-weight: 500; 
+    opacity: 0.7; 
+}
+
+nav a:hover { opacity: 1; color: var(--accent); }
+
+/* Perbaikan Grid agar tidak vertikal */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 20px; 
+    padding: 30px 5%; 
+}
+
+.card { 
+    background: var(--card-bg); 
+    border-radius: 16px; 
+    padding: 20px; 
+    text-decoration: none; 
+    color: inherit; 
+    transition: 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+
+.card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+
+.coin-rank { font-size: 0.8rem; opacity: 0.5; font-weight: bold; }
+
+.card img { width: 32px; height: 32px; }
+
+.price-info { display: flex; justify-content: space-between; align-items: flex-end; }
+
+.up { color: var(--up); font-weight: bold; }
+.down { color: var(--down); font-weight: bold; }
+
+/* Styling Khusus Swap agar bersih */
+.swap-container { display: flex; justify-content: center; padding: 60px 20px; }
+.swap-box { 
+    background: var(--card-bg); 
+    padding: 30px; 
+    border-radius: 24px; 
+    width: 100%; 
+    max-width: 400px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.input-group { 
+    background: rgba(0,0,0,0.02); 
+    padding: 15px; 
+    border-radius: 12px; 
+    margin: 10px 0; 
+}
+
+body.dark .input-group { background: rgba(255,255,255,0.05); }
+
+.input-group input { 
+    background: transparent; 
+    border: none; 
+    font-size: 1.2rem; 
+    color: var(--text); 
+    width: 60%; 
+    outline: none; 
+}
+
+/* Container Utama (Mode Grid) */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 20px; 
+    padding: 20px 5%; 
+}
+
+/* Mode List (Diaktifkan lewat JS) */
+.grid.list-view { 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.grid.list-view .card { 
+    flex-direction: row; 
+    align-items: center; 
+    padding: 12px 25px; 
+    margin-bottom: 8px;
+}
+
+.grid.list-view .card-content { 
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
+    gap: 20px;
+}
+
+.grid.list-view .price-info { 
+    margin-left: auto; 
+    display: flex; 
+    gap: 20px; 
+    align-items: center;
+}
+
+.grid.list-view .coin-rank { display: block; margin-right: 15px; }
+
+/* Tombol Kontrol */
+.btn-view {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-view.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+/* Pastikan variabel warna sudah lengkap */
+:root {
+    --bg: #f8fafc;
+    --text: #1e293b;
+    --card-bg: #ffffff;
+    --accent: #3b82f6;
+}
+
+body.dark {
+    --bg: #0f172a;
+    --text: #f1f5f9;
+    --card-bg: #1e293b;
+}
+
+/* Transisi untuk semua elemen saat ganti tema */
+body { 
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.4s ease, color 0.4s ease; 
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.theme-btn:active {
+    transform: rotate(180deg); /* Animasi putar saat diklik */
+}
+
+/* Pastikan tampilan grid dasar selalu aktif jika list-view tidak ada */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 20px; 
+    padding: 20px 5%; 
+}
+
+/* Tombol Aktif */
+.btn-view.active {
+    background-color: var(--accent) !important;
+    color: white !important;
+    border-color: var(--accent);
+}
+
+/* Transisi halus agar tidak kaku saat berpindah */
+#coinGrid {
+    transition: all 0.3s ease-in-out;
+}
