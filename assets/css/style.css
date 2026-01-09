@@ -216,3 +216,25 @@ body {
 #coinGrid {
     transition: all 0.3s ease-in-out;
 }
+
+/* Timeframe*/
+.timeframe-selector button, .type-selector button {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background: var(--card-bg);
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.timeframe-selector button.active, .type-selector button.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+body.dark .timeframe-selector button, body.dark .type-selector button {
+    border-color: #444;
+}

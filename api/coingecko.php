@@ -5,7 +5,6 @@ if (!function_exists('fetchAPI')) {
         if (!is_dir($cacheDir)) mkdir($cacheDir, 0777, true);
         $cacheFile = $cacheDir . md5($url) . '.json';
 
-        // Cache 1 menit
         if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < 60)) {
             return json_decode(file_get_contents($cacheFile), true);
         }
@@ -33,5 +32,11 @@ if (!function_exists('fetchAPI')) {
 
     function getCoinDetail($id) {
         return fetchAPI("https://api.coingecko.com/api/v3/coins/" . urlencode($id));
+    }
+
+    // Fungsi Baru untuk Candlestick
+    function getCoinOHLC($id, $days = 1) {
+        $url = "https://api.coingecko.com/api/v3/coins/" . urlencode($id) . "/ohlc?vs_currency=usd&days=$days";
+        return fetchAPI($url) ?: [];
     }
 }

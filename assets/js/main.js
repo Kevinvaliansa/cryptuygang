@@ -1,40 +1,46 @@
 function toggleTheme() {
     const body = document.body;
     const currentTheme = body.classList.contains('dark') ? 'light' : 'dark';
-    
-    // 1. Ubah class di body secara instan
     body.classList.remove('light', 'dark');
     body.classList.add(currentTheme);
-    
-    // 2. Kirim permintaan ke PHP untuk simpan tema di Cookie
-    fetch('toggle-theme.php?theme=' + currentTheme)
-    .then(response => {
-        console.log("Tema berhasil diubah ke: " + currentTheme);
-    })
-    .catch(err => console.error("Gagal menyimpan tema:", err));
+    fetch('toggle-theme.php?theme=' + currentTheme);
 }
+
 function setView(mode) {
     const grid = document.getElementById('coinGrid');
-    const buttons = document.querySelectorAll('.btn-view');
-    
-    if (!grid) return;
-
-    // Menghapus class lama dan menambah yang baru berdasarkan mode
-    if (mode === 'list') {
-        grid.classList.add('list-view');
-    } else {
-        grid.classList.remove('list-view');
-    }
-
-    // Simpan pilihan agar tidak hilang saat refresh
+    if (grid) grid.classList.toggle('list-view', mode === 'list');
     localStorage.setItem('pref-view', mode);
+}
 
-    // Update status tombol aktif secara spesifik
-    buttons.forEach(btn => {
-        btn.classList.remove('active');
-        // Mencari tombol yang sesuai dengan mode yang diklik
-        if (btn.getAttribute('onclick').includes(mode)) {
-            btn.classList.add('active');
-        }
+function searchCoin() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('#coinGrid .card');
+    cards.forEach(card => {
+        const name = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = name.includes(input) ? "" : "none";
     });
 }
+
+function toggleWatchlist(id, event) {
+    event.preventDefault(); event.stopPropagation();
+    let watchlist = JSON.parse(localStorage.getItem('myWatchlist')) || [];
+    const index = watchlist.indexOf(id);
+    if (index > -1) watchlist.splice(index, 1);
+    else watchlist.push(id);
+    localStorage.setItem('myWatchlist', JSON.stringify(watchlist));
+    renderWatchlistIcons();
+}
+
+function renderWatchlistIcons() {
+    const watchlist = JSON.parse(localStorage.getItem('myWatchlist')) || [];
+    document.querySelectorAll('.star-icon').forEach(star => {
+        const id = star.getAttribute('data-id');
+        star.innerText = watchlist.includes(id) ? '⭐' : '☆';
+        star.classList.toggle('active', watchlist.includes(id));
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderWatchlistIcons();
+    if (localStorage.getItem('pref-view')) setView(localStorage.getItem('pref-view'));
+});
